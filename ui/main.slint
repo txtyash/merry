@@ -1,10 +1,17 @@
 import { LineEdit, AboutSlint, Button, VerticalBox } from "std-widgets.slint";
-export component MerryWindow {
-    in-out property <string> response;
+
+export struct Definition {
+    word:string,
+    definition: string,
+    example:string
+}
+
+export component MainWindow {
+    in property <[Definition]> definitions;
     callback search(string);
     VerticalBox {
         Text {
-            text: "Merry Dictionary";
+            text: "Urban Dictionary";
             font-size: 24px;
             horizontal-alignment: center;
         }
@@ -28,11 +35,26 @@ export component MerryWindow {
                 enabled: search-box.text != "";
             }
         }
-        Text {
-            text: response;
-            font-size: 15px;
-            horizontal-alignment: left;
-            wrap: word-wrap;
+        VerticalLayout {
+            for data in root.definitions: definitions := VerticalLayout { 
+                Text {
+                    text: data.word;
+                    font-size: 15px;
+                    wrap: word-wrap;
+                }
+                Text {
+                    text: data.definition;
+                    font-size: 15px;
+                    horizontal-alignment: left;
+                    wrap: word-wrap;
+                }
+                Text {
+                    text: data.example;
+                    font-size: 15px;
+                    horizontal-alignment: left;
+                    wrap: word-wrap;
+                }
+            }
         }
         Rectangle {}
         AboutSlint {
