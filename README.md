@@ -1,7 +1,5 @@
-# Merry
+# Urban Dictionary
 
-Merry is a simple dictionary app built using the [mewe crate](https://github.com/txtyash/mewe) and the [Slint UI framework](https://slint.dev).
+Urban Dictionary is a simple dictionary app built using the [urban dictionary api](https://api.urbandictionary.com/v0/define?term=api) and the [Slint UI framework](https://slint.dev).
 
-<p align="center">
-  <img src="https://github.com/txtyash/merry/assets/85027668/92f7dde5-c34c-41c3-b2a6-48b7dfec911f">
-</p>
+![application screenshot](./screenshot.png)

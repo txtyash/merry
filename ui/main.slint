@@ -1,4 +1,4 @@
-import { LineEdit, AboutSlint, Button, VerticalBox } from "std-widgets.slint";
+import { LineEdit, AboutSlint, Button, VerticalBox, ScrollView } from "std-widgets.slint";
 
 export struct Definition {
     word:string,
@@ -7,58 +7,68 @@ export struct Definition {
 }
 
 export component MainWindow {
+    width: 500px;
+    height: 700px;
     in property <[Definition]> definitions;
     callback search(string);
-    VerticalBox {
-        Text {
-            text: "Urban Dictionary";
-            font-size: 24px;
-            horizontal-alignment: center;
-        }
-        HorizontalLayout { 
-            alignment: center;
-            spacing: 5px;
-            search-box := LineEdit {
-                font-size: 14px;
-                placeholder-text: "Enter a word...";
-                accepted(text) => {
-                    root.search(self.text);
-                    self.text = "";
+    ScrollView {
+        width: 500px;
+        height: 700px;
+        viewport-height: 800px;
+        VerticalBox {
+            Text {
+                text: "Urban Dictionary";
+                font-size: 24px;
+                horizontal-alignment: center;
+            }
+            HorizontalLayout { 
+                alignment: center;
+                spacing: 5px;
+                search-box := LineEdit {
+                    font-size: 14px;
+                    placeholder-text: "Enter a word...";
+                    accepted(text) => {
+                        root.search(self.text);
+                        self.text = "";
+                    }
+                }
+                btn := Button {
+                    text: "Search";
+                    clicked => {
+                        root.search(search-box.text);
+                        search-box.text = "";
+                    }
+                    enabled: search-box.text != "";
                 }
             }
-            btn := Button {
-                text: "Search";
-                clicked => {
-                    root.search(search-box.text);
-                    search-box.text = "";
-                }
-                enabled: search-box.text != "";
-            }
-        }
-        VerticalLayout {
-            for data in root.definitions: definitions := VerticalLayout { 
-                Text {
-                    text: data.word;
-                    font-size: 15px;
-                    wrap: word-wrap;
-                }
-                Text {
-                    text: data.definition;
-                    font-size: 15px;
-                    horizontal-alignment: left;
-                    wrap: word-wrap;
-                }
-                Text {
-                    text: data.example;
-                    font-size: 15px;
-                    horizontal-alignment: left;
-                    wrap: word-wrap;
+            VerticalLayout {
+                padding: 2px;
+                spacing: 10px;
+                for data in root.definitions: definitions := VerticalLayout { 
+                    Rectangle {
+                        border-width: 5px;
+                        height: 40px;
+                        border-radius: 20px;
+                        border-color: lightgray;
+                        Text {
+                            text: data.word;
+                            font-size: 15px;
+                            wrap: word-wrap;
+                        }
+                    }
+                     Text {
+                        padding-top: 10px;
+                        text: data.definition;
+                        font-size: 15px;
+                        horizontal-alignment: left;
+                        wrap: word-wrap;
+                    }
                 }
             }
-        }
-        Rectangle {}
-        AboutSlint {
-            preferred-height: 50px;
+            Rectangle {}
+            AboutSlint {
+                preferred-height: 50px;
+            }
         }
     }
 }

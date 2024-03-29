@@ -27,7 +27,11 @@
               pkg-config
               rust-bin.beta.latest.default
             ];
-            packages = [ pkgs.bashInteractive ];
+            packages = [
+              bashInteractive
+              android-tools
+              cargo-apk
+            ];
             # TODO: Read on shellHooks
             shellHook = ''
               # alias ls=eza

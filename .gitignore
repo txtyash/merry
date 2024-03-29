@@ -5,3 +5,4 @@ scratch.md
 
 /target
 Cargo.lock
+.env*
